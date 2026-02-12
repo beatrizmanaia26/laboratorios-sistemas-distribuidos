@@ -1,0 +1,67 @@
+(init .py pro pyhon saber oq ocorre)
+
+pre requistos
+baixar docker, wsl i
+
+PARA ESSE LAB: !!!!!!!!!!!!!!!!!!!
+
+entrar no src (cd ate dar p fazer cd src)
+
+---- se tem docker: 
+abrir app docker
+rodar docker compose up (faz build p mim)
+
+---se nao tem docker:
+
+pip install -r requirements.txt
+python -m fastapi run main.py
+
+abre links pelo git lab se eu trocar a porta (aqui ta so / ent abro http://localhost )
+
+
+--testar fastapiswagger:
+localhost/docs/adicionar 
+clica no try it out e adicionar tarefa
+
+docker gerencia container
+s
+-> instrucoes: https://gitlab.com/laferreira/fei/cc7261/-/blob/main/rest/lab.md
+
+-------------------
+
+http://localhost:/ - Lista tarefas
+
+http://localhost:/docs - Documentação automática Swagger/OpenAPI (PRIMEIRO CRIO TAREFA NO /adicionar/ criar tarefa e dps mexo no /tarefa/ poss)
+
+Dica: Acesse http://localhost:/docs para testar todos os endpoints visualmente!
+
+---------------------------------
+
+explicacao: init.py
+-é arquivo que transforma pasta app em pacote python
+-permite importar modulos da pasta app em outros lugares
+o fato de ta vazio indica que é pacote msm sem codigo inicial
+
+explicacao:pycache
+-diretorio automatico do python
+-armazena bytecode compilado (.pyc files) para execucao mas rapida
+-nao versiondo, é gerado automaticamente
+
+
+PQ RODAR NO SRC:
+-pq preciso ta no msmo diretorio one ta docker-compose.yml para rodar docker pois ele usa caminhos relativos
+se rodar docker-compose up m outro lugar ele nao acha o dockerfile e nao monta os volumes corretamente alem de usar contexto errado para o build
+
+
+FLUXO DE EXECUCAO:
+
+docker-compose up 
+-le docker-compose.yml
+-controi umagem usando dockerfile
+-instala dependencias (requirements.txt)
+-copia codigo (app/*)
+-sobe container na porta 80
+-executa fast api run /app/main.py
+-minha api rest ta rodando
+
+back com fast api 

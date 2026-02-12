@@ -1,12 +1,25 @@
-services:
 
+#orquestrador de multiplos containers
+services:
+#define a eção onde os servicos(containers) serão configurados), cada serviço representa um  container que sera executado
   servidor:
+  #nome do arquivo: define um serviço chamado servidor (posso ter vários serviços, ex bd, frontend)
     build:
-      context: .
+    #constroi a partir do dokerfile ao inves de usar uma já existente
+      context: . 
+      # conteudo do build é diretorio atual, onde ta o docker-compose.yl, durante o build o docker tera acesso aos arquivos nesse diretorio
       dockerfile: Dockerfile
+      #especifica o nome do dockerfile a ser utilizado, ja q ta no mesmo servico podemos colocar assim
     image: cc7261:rest
+    #define o nome e a tag da imagem que será criada após o build
     container_name: servidor
+    # compose gera um nome baseado no projeto e serviço, com um numero
     volumes:
-      - ./app:/code/app
+    #configura volumes (monstagens) do host para o continer), permite persistencia de dados e sincronizacao de arquivos
+      - ./app:/app 
+      #tava ./app:/code/app ?????????????????
+      #./= relativo ao yml, monta o diretorio relativo ao contexto nesse caminho dentro do container 
     ports:
       - 80:80
+
+#funcao do arquivo: facilitar a inicializacao, configuracao e gerenciamento do container
