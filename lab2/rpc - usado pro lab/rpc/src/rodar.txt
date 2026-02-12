@@ -1,9 +1,3 @@
-oq fiz:
-usei o codigo da pasta rpc mas sor forneceu no lab para usar o codigo da pasta mpi 
-
-
-
-como rodar:
 copiar codigos do gitlab:https://gitlab.com/laferreira/fei/cc7261/-/blob/main/rpc/lab.md
 para rodar, entrar no src
 roda docker-compose up -build (forca a fazer build o compose)

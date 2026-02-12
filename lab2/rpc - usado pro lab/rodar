@@ -1,0 +1,9 @@
+copiar codigos do gitlab:https://gitlab.com/laferreira/fei/cc7261/-/blob/main/rpc/lab.md
+para rodar, entrar no src
+roda docker-compose up -build (forca a fazer build o compose)
+imagem dessa semana compila protobuf
+
+---
+extra:cliente acha q roda local mas ta rodando no servidor
+
+quando mudo dockerfile tenhp que rodar o docker-compose up --build p recriar a imagem
