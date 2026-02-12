@@ -8,7 +8,15 @@ COPY ./task_manager.proto .
 
 RUN python -m grpc_tools.protoc -I. --python_out=. --grpc_python_out=. task_manager.proto
 
+COPY ./requirements.txt /code/requirements.txt
+#EXTRA: copia dependencias p rodar rest (add isso ^)
+
+RUN pip install --no-cache-dir --upgrade -r /code/requirements.txt
+#EXTRA: copia dependencia p rodar rest (add isso^)
+
 COPY ./cliente.py .
  
-CMD ["python", "cliente.py"] 
+# codigo normal CMD ["python", "cliente.py"] 
 
+CMD ["fastapi", "run", "cliente.py"] 
+# extra add isso ^

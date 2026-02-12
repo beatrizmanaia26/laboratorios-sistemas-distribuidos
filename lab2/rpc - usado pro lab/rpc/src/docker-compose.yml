@@ -5,7 +5,8 @@ services:
       dockerfile: Dockerfile_servidor
     container_name: servidor
     ports:
-     - 50051:50051
+     #normal - 50051:50051
+     - 8000:8000
 
   cliente:
     build:
