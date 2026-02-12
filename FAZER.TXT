@@ -1,0 +1,1 @@
+usei o codigo da pasta rpc mas sor forneceu no lab para usar o codigo da pasta mpi 
