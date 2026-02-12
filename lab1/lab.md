@@ -1,0 +1,127 @@
+# Lab 01 - REST usando FastAPI
+
+O arquivo `main.py` já possui:
+```py
+from fastapi import FastAPI
+
+app = FastAPI()
+
+@app.get("/")
+async def root():
+    return {"message": "hello world"}
+```
+
+Execute o `docker compose` e no browser abra as página:
+- http://localhost:8000/
+- http://localhost:8000/docs
+- http://localhost:8000/redoc
+
+Adicione no arquivo `main.py` um contador `counter` inicializado com zero e a seguinte função:
+```py
+@app.get("/count")
+def get_count():
+    global counter
+    counter += 1
+    return counter
+```
+
+Acesse http://localhost:8000/count e atualize a página algumas vezes.
+1. O que acontece com o contador?
+2. Por que é necessário declarar a variável `counter` como global?
+3. Por que esta função não respeita a arquitetura REST?
+
+## Métodos HTTP
+
+| uso                 | HTTP    | fastapi         |
+| ------------------- | ------- | --------------- |
+| para receber dados  |`GET`    | `@app.get()`    |
+| para criar dados    |`POST`   | `@app.post()`   |
+| para atualizar dados|`PUT`    | `@app.put()`    |
+| para deletar dados  |`DELETE` | `@app.delete()` |
+
+
+### Método `GET` e paths
+
+Adicione as seguintes funções no arquivo `main.py` e teste o seu uso:
+
+```py
+@app.get("/hello")
+def hello_world():
+    return "Hello, world"
+```
+
+```py
+@app.get("/hello/{name}")
+def hello(name):
+    return f"Hello, {name}"
+```
+
+```py
+@app.get("/hello/")
+def hello(parameter = "World"):
+    return f"Hello, {parameter}"
+```
+
+Qual a diferença entre eles?
+
+### `POST`
+
+No arquivo `main.py` importe o `BaseModel` do `pydantic` e adicione os seguintes códigos ao arquivo `main.py`
+```py
+class Pessoa(BaseModel):
+    nome: str
+    sobrenome: str
+    idade: int
+```
+
+```py
+@app.post("/pessoa/")
+def criar_pessoa(pessoa: Pessoa):
+    return pessoa
+```
+
+Teste a execução do `POST` usando o Swagger.
+
+## Exemplo um pouco mais longo
+
+Teste o código a seguir e descreva o que cada função está fazendo (comente no próprio código)
+
+```py
+from fastapi import FastAPI
+from pydantic import BaseModel
+
+app = FastAPI()
+
+tarefas = list()
+
+class Tarefa(BaseModel):
+    tarefa: str
+    prioridade: int
+    feito: bool
+
+@app.get("/")
+def root():
+    return tarefas
+
+@app.get("/tarefa/{pos}")
+def get_tarefa(pos: int):
+    return tarefas[pos]
+
+@app.post("/adicionar/")
+def criar_tarefa(tarefa: Tarefa):
+    tarefa.feito = False
+    tarefas.append(tarefa)
+    return len(tarefas)
+
+@app.put("/feito/{pos}")
+def marcar_feito(pos: int):
+    tarefas[pos].feito = True
+    return tarefas[pos]
+
+@app.delete("/deletar/{pos}")
+def deletar_tarefa(pos: int):
+    tarefa = tarefas.pop(pos)
+    return tarefa
+```
+
+Utilize o Swagger para testar as chamadas de cada recurso implementado.
