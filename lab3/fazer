@@ -1,0 +1,5 @@
+alterar cliente e servidor p toca de mensagem
+grpc eh oq protobuf deixa, agr eu escolho oq quero mandar
+
+para rodar entre na pasta broker
+rodar docker-compoe up --build ao rodar pela primeira vez
